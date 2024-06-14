@@ -8,8 +8,8 @@ export default function Dropdown({ showdropdown, coordinates }) {
         <div
           className="dropDown"
           style={{
-            top: coordinates.current["y"] - 200,
-            left: coordinates.current["x"] - 100,
+            top: coordinates.current["y"] - 70,
+            left: coordinates.current["x"] - 80,
           }}
         >
           <form action="">
