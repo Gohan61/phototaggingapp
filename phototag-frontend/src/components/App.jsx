@@ -10,8 +10,8 @@ function App() {
   function saveCoordinates(e, coordinates) {
     console.log(e);
     coordinates.current = {
-      x: e.pageX,
-      y: e.pageY,
+      x: e.nativeEvent.offsetX,
+      y: e.nativeEvent.offsetY,
     };
   }
 
