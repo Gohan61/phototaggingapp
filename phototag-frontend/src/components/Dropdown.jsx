@@ -1,8 +1,17 @@
-export default function Dropdown({ showdropdown }) {
+import "../stylesheets/dropdown.css";
+
+export default function Dropdown({ showdropdown, coordinates }) {
+  console.log(coordinates);
   if (showdropdown) {
     return (
       <>
-        <div className="dropDown">
+        <div
+          className="dropDown"
+          style={{
+            top: coordinates.current["y"] - 100,
+            left: coordinates.current["x"],
+          }}
+        >
           <form action="">
             <select name="animals" id="animals">
               <option value="select">Choose an animal</option>
