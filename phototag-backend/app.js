@@ -4,18 +4,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const indexRouter = require("./routes/index");
-require("dotenv").config();
-const { default: mongoose, model } = require("mongoose");
+require("./config/database");
 const app = express();
-
-//Setup mongoose connection
-mongoose.set("strictQuery", false);
-const mongoDB = process.env.MONGODB_URI;
-
-const connection = async () => {
-  await mongoose.connect(mongoDB);
-};
-connection().catch((err) => console.log(err));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -42,7 +32,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.send("error");
 });
 
 module.exports = app;
