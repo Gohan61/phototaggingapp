@@ -1,6 +1,11 @@
 import "../stylesheets/dropdown.css";
 
-export default function Dropdown({ showdropdown, coordinates }) {
+export default function Dropdown({
+  setdropdown,
+  showdropdown,
+  coordinates,
+  handleSubmit,
+}) {
   console.log(coordinates);
   if (showdropdown) {
     return (
@@ -13,10 +18,17 @@ export default function Dropdown({ showdropdown, coordinates }) {
           }}
         >
           <form action="">
-            <select name="animals" id="animals">
+            <select
+              name="animals"
+              id="animals"
+              onChange={(e) => {
+                handleSubmit(e);
+                setdropdown(false);
+              }}
+            >
               <option value="select">Choose an animal</option>
-              <option value="brown-chicken">Brown chicken</option>
-              <option value="white-chicken">White chicken</option>
+              <option value="brownChicken">Brown chicken</option>
+              <option value="whiteChicken">White chicken</option>
               <option value="rabbit">Rabbit</option>
             </select>
           </form>
