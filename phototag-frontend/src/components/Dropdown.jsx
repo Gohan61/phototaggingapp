@@ -6,7 +6,6 @@ export default function Dropdown({
   coordinates,
   handleSubmit,
 }) {
-  console.log(coordinates);
   if (showdropdown) {
     return (
       <>
