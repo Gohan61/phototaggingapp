@@ -2,11 +2,17 @@ import { useRef, useState } from "react";
 import "../stylesheets/App.css";
 import animals from "../assets/chicken-rabbit.jpg";
 import Dropdown from "./Dropdown";
+import Marker from "./Marker";
 
 function App() {
   const [showdropdown, setdropdown] = useState(false);
   let coordinates = useRef();
   const [message, setMessage] = useState("");
+  const [markers, setMarker] = useState({
+    brownChicken: false,
+    rabbit: false,
+    whiteChicken: false,
+  });
 
   function saveCoordinates(e, coordinates) {
     coordinates.current = {
@@ -34,11 +40,11 @@ function App() {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
         if (res.message === "Coordinates not in range") {
-          setMessage(res.message);
+          setMessage("That was a miss");
         } else {
-          setMessage(res.message);
+          setMessage("That was a hit");
+          setMarker({ ...markers, [e.target.value]: true });
         }
       });
   };
@@ -63,7 +69,9 @@ function App() {
           coordinates={coordinates}
           handleSubmit={handleSubmit}
         />
+        <Marker marker={markers} />
       </div>
+
       <p className="message">{message}</p>
     </>
   );
