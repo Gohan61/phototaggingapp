@@ -1,11 +1,27 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Coordinates = new Schema({
-  brownChickenX: { type: Number, min: 104, max: 131 },
-  brownChickenY: { type: Number, min: 153, max: 168 },
-  rabbitX: { type: Number, min: 235, max: 311 },
-  rabbitY: { type: Number, min: 127, max: 152 },
-  whiteChickenX: { type: Number, min: 424, max: 496 },
-  whiteChickenY: { type: Number, min: 225, max: 259 },
+const CoordinatesSchema = new Schema({
+  coords: [
+    {
+      x: [Number, Number],
+      y: [Number, Number],
+    },
+    { x: [Number, Number], y: [Number, Number] },
+    { x: [Number, Number], y: [Number, Number] },
+  ],
 });
+
+const CoordinatesModel = mongoose.model("Coordinates", CoordinatesSchema);
+
+const coordinates = new CoordinatesModel({
+  coords: [
+    { x: [104, 131], y: [153, 168] },
+    { x: [235, 311], y: [127, 152] },
+    { x: [424, 496], y: [225, 259] },
+  ],
+});
+
+// coordinates.save();
+
+module.exports = CoordinatesModel;
