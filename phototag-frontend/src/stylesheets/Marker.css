@@ -1,0 +1,22 @@
+.marker {
+  position: absolute;
+  z-index: 1;
+  font-size: 10em;
+  margin-top: -30px;
+  color: red;
+}
+
+.whiteChicken {
+  top: 130px;
+  left: 426px;
+}
+
+.brownChicken {
+  top: 60px;
+  left: 111px;
+}
+
+.rabbit {
+  top: 10px;
+  left: 223px;
+}
