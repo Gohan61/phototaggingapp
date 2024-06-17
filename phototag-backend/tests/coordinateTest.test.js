@@ -9,15 +9,13 @@ beforeAll(async () => {
   initializeMongoServer();
 
   const coordinates = new CoordinatesModel({
-    coords: [
-      { x: [104, 131], y: [153, 168] },
-      { x: [235, 311], y: [127, 152] },
-      { x: [424, 496], y: [225, 259] },
-    ],
-    _id: "6670343dc291fd6c5d232b3e",
+    brownChicken: { x: [104, 131], y: [153, 168] },
+    rabbit: { x: [235, 311], y: [127, 152] },
+    whiteChicken: { x: [424, 496], y: [225, 259] },
+    _id: "66704aee26485e9e9147fcea",
   });
 
-  await coordinates.save();
+  coordinates.save();
 });
 
 app.use(express.json());
@@ -25,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", index);
 
 test("Coordinates not in range", async () => {
-  const payload = { x: 120, y: 500 };
+  const payload = { x: 120, y: 500, animal: "rabbit" };
 
   const res = await request(app)
     .post("/")
@@ -38,7 +36,7 @@ test("Coordinates not in range", async () => {
 });
 
 test("Coordinates in range", async () => {
-  const payload = { x: 105, y: 155 };
+  const payload = { x: 105, y: 155, animal: "brownChicken" };
 
   const res = await request(app)
     .post("/")
