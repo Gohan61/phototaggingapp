@@ -8,4 +8,6 @@ router.get("/", gameController.startTime);
 
 router.get("/time", gameController.checkTime);
 
+router.put("/highscore", gameController.saveHighscore);
+
 module.exports = router;

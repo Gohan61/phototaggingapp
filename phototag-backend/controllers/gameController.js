@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Coordinates = require("../models/animalCoordinates");
 const Highscores = require("../models/highscores");
+const { body, validationResult } = require("express-validator");
 let start;
 
 exports.getCoordinates = asyncHandler(async (req, res, next) => {
@@ -44,3 +45,33 @@ exports.checkTime = asyncHandler(async (req, res, next) => {
     .status(200)
     .json({ finalTime: finalTime, newHighScore: newHighScore });
 });
+
+exports.saveHighscore = [
+  body("username", "Username must be at least three characters")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    let highScore = await Highscores.find({});
+
+    highScore = highScore.sort((a, b) => b.time - a.time);
+
+    const updateId = highScore[0]._id.toString();
+
+    const newHighscore = new Highscores({
+      username: req.body.username,
+      time: req.body.time,
+      _id: updateId,
+    });
+
+    if (!errors.isEmpty()) {
+      return res.json({ errors: errors });
+    } else {
+      await Highscores.findByIdAndUpdate(updateId, newHighscore);
+      return res.json({ message: "Highscore updated" });
+    }
+  }),
+];
