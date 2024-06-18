@@ -6,4 +6,6 @@ router.post("/", gameController.getCoordinates);
 
 router.get("/", gameController.startTime);
 
+router.get("/time", gameController.checkTime);
+
 module.exports = router;
