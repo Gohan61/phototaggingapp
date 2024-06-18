@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function Newhighscore({ highScore, finalTime }) {
+export default function Newhighscore({
+  highScore,
+  newhighScore,
+  finalTime,
+  setMessage,
+}) {
   const [username, setUsername] = useState("");
   const [errors, setError] = useState("");
 
@@ -23,7 +28,8 @@ export default function Newhighscore({ highScore, finalTime }) {
       })
       .then((res) => {
         if (res.message === "Highscore updated") {
-          console.log(res.message);
+          newhighScore(false);
+          setMessage("Awesome");
         } else {
           const errorMessage = { msg: res.errors.errors.msg };
           throw { errorMessage };

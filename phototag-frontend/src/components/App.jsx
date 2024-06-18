@@ -93,6 +93,8 @@ function App() {
         setFinalTime(res.finalTime);
         if (res.newHighScore) {
           newhighScore(true);
+        } else {
+          setMessage("Better luck next time");
         }
       });
   }
@@ -121,7 +123,12 @@ function App() {
       </div>
       {newGame ? <p className="time">Your time: {finalTime} seconds</p> : ""}
       <p className="message">{message}</p>
-      <Newhighscore highScore={highScore} finalTime={finalTime} />
+      <Newhighscore
+        highScore={highScore}
+        newhighScore={newhighScore}
+        finalTime={finalTime}
+        setMessage={setMessage}
+      />
       <button onClick={() => setNewGame(false)}>New Game</button>
       <Highscores highScore={highScore} finalTime={finalTime} />
     </>
