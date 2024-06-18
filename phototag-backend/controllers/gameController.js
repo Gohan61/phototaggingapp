@@ -75,3 +75,15 @@ exports.saveHighscore = [
     }
   }),
 ];
+
+exports.getHighscores = asyncHandler(async (req, res, next) => {
+  const highscores = await Highscores.find({});
+
+  if (!highscores) {
+    const err = new Error("Highscores not found");
+    err.status = 404;
+    return next(err);
+  } else {
+    return res.json({ highscores });
+  }
+});
