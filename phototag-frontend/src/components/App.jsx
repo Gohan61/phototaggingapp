@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "../stylesheets/App.css";
 import animals from "../assets/chicken-rabbit.jpg";
 import Dropdown from "./Dropdown";
@@ -13,6 +13,8 @@ function App() {
     rabbit: false,
     whiteChicken: false,
   });
+  const [finalTime, setFinalTime] = useState("");
+  const [newGame, setNewGame] = useState(false);
 
   function saveCoordinates(e, coordinates) {
     coordinates.current = {
@@ -49,6 +51,46 @@ function App() {
       });
   };
 
+  useEffect(() => {
+    setNewGame(true);
+    fetch("http://localhost:3000", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        if (res.message === "Game has started") {
+          setMessage(res.message);
+        }
+      });
+  }, [newGame]);
+
+  if (
+    markers.brownChicken === true &&
+    markers.whiteChicken === true &&
+    markers.rabbit === true
+  ) {
+    setMarker({ brownChicken: false, rabbit: false, whiteChicken: false });
+    fetch("http://localhost:3000/time", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setFinalTime(res.finalTime);
+      });
+  }
+
   return (
     <>
       <h1>Tag the animals</h1>
@@ -71,8 +113,9 @@ function App() {
         />
         <Marker marker={markers} />
       </div>
-
+      {newGame ? <p className="time">Your time: {finalTime} seconds</p> : ""}
       <p className="message">{message}</p>
+      <button onClick={() => setNewGame(false)}>New Game</button>
     </>
   );
 }
