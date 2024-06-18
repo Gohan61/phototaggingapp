@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Coordinates = require("../models/animalCoordinates");
+let start;
 
 exports.getCoordinates = asyncHandler(async (req, res, next) => {
   const coordinates = await Coordinates.findById(
@@ -21,7 +22,13 @@ exports.getCoordinates = asyncHandler(async (req, res, next) => {
 });
 
 exports.startTime = asyncHandler(async (req, res, next) => {
-  const start = Date.now();
+  start = Date.now();
 
-  return res.status(200).json({ startTime: start });
+  return res.status(200).json({ message: "Game has started" });
+});
+
+exports.checkTime = asyncHandler(async (req, res, next) => {
+  let finalTime = Math.floor((Date.now() - start) / 1000);
+
+  return res.status(200).json({ finalTime: finalTime });
 });
