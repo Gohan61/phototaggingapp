@@ -19,3 +19,9 @@ exports.getCoordinates = asyncHandler(async (req, res, next) => {
 
   return res.status(200).json({ message: "Coordinates not in range" });
 });
+
+exports.startTime = asyncHandler(async (req, res, next) => {
+  const start = Date.now();
+
+  return res.status(200).json({ startTime: start });
+});
