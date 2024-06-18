@@ -3,6 +3,8 @@ import "../stylesheets/App.css";
 import animals from "../assets/chicken-rabbit.jpg";
 import Dropdown from "./Dropdown";
 import Marker from "./Marker";
+import Newhighscore from "./Newhighscore";
+import Highscores from "./Highscores";
 
 function App() {
   const [showdropdown, setdropdown] = useState(false);
@@ -15,6 +17,7 @@ function App() {
   });
   const [finalTime, setFinalTime] = useState("");
   const [newGame, setNewGame] = useState(false);
+  const [highScore, newhighScore] = useState(false);
 
   function saveCoordinates(e, coordinates) {
     coordinates.current = {
@@ -88,6 +91,9 @@ function App() {
       })
       .then((res) => {
         setFinalTime(res.finalTime);
+        if (res.newHighScore) {
+          newhighScore(true);
+        }
       });
   }
 
@@ -115,7 +121,9 @@ function App() {
       </div>
       {newGame ? <p className="time">Your time: {finalTime} seconds</p> : ""}
       <p className="message">{message}</p>
+      <Newhighscore highScore={highScore} finalTime={finalTime} />
       <button onClick={() => setNewGame(false)}>New Game</button>
+      <Highscores highScore={highScore} finalTime={finalTime} />
     </>
   );
 }
