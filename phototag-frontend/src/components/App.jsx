@@ -18,6 +18,7 @@ function App() {
   const [finalTime, setFinalTime] = useState("");
   const [newGame, setNewGame] = useState(false);
   const [highScore, newhighScore] = useState(false);
+  const [errors, setError] = useState("");
 
   function saveCoordinates(e, coordinates) {
     coordinates.current = {
@@ -69,7 +70,12 @@ function App() {
       .then((res) => {
         if (res.message === "Game has started") {
           setMessage(res.message);
+        } else {
+          throw new Error("Something went wrong");
         }
+      })
+      .catch((error) => {
+        setError(error);
       });
   }, [newGame]);
 
@@ -130,7 +136,12 @@ function App() {
         setMessage={setMessage}
       />
       <button onClick={() => setNewGame(false)}>New Game</button>
-      <Highscores highScore={highScore} finalTime={finalTime} />
+      <Highscores
+        highScore={highScore}
+        finalTime={finalTime}
+        setError={setError}
+      />
+      <p className="error">{errors}</p>
     </>
   );
 }

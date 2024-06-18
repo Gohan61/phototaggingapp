@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Highscores({ highScore, finalTime }) {
+export default function Highscores({ highScore, finalTime, setError }) {
   const [highscoreList, setHighScoreList] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,14 @@ export default function Highscores({ highScore, finalTime }) {
         return res.json();
       })
       .then((res) => {
-        setHighScoreList(res);
+        if (res.highscores) {
+          setHighScoreList(res);
+        } else {
+          throw new Error("Highscores not found");
+        }
+      })
+      .catch((error) => {
+        setError(error);
       });
   }, [highScore, finalTime]);
 
