@@ -76,3 +76,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.newHighScore {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 1.1em;
+}

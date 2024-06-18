@@ -49,3 +49,46 @@
   position: relative;
   width: 600px;
 }
+
+.time {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: darkblue;
+}
+
+.message {
+  font-size: 1.1em;
+  font-style: italic;
+}
+
+.newGame {
+  margin-bottom: 20px;
+}
+
+.highscoreList {
+  font-size: 1.5em;
+  border-collapse: collapse;
+  border: 2px solid blue;
+}
+
+.highscoreList th,
+.highscoreList td {
+  padding: 15px;
+  border: 2px solid blue;
+}
+
+.highscoreList thead {
+  background-color: beige;
+}
+
+.highscoreList tbody tr:nth-of-type(1) {
+  background-color: gold;
+}
+
+.highscoreList tbody tr:nth-of-type(2) {
+  background-color: aquamarine;
+}
+
+.highscoreList tbody tr:nth-of-type(3) {
+  background-color: greenyellow;
+}

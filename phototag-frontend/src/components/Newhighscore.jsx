@@ -43,7 +43,7 @@ export default function Newhighscore({
   if (highScore) {
     return (
       <>
-        <form action="" method="put">
+        <form action="" method="put" className="newHighScore">
           <label htmlFor="username">Username</label>
           <input
             type="text"
