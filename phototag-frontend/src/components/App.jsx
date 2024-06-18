@@ -127,7 +127,7 @@ function App() {
         />
         <Marker marker={markers} />
       </div>
-      {newGame ? <p className="time">Your time: {finalTime} seconds</p> : ""}
+      {finalTime ? <p className="time">Your time: {finalTime} seconds</p> : ""}
       <p className="message">{message}</p>
       <Newhighscore
         highScore={highScore}
