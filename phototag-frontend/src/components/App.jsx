@@ -135,7 +135,9 @@ function App() {
         finalTime={finalTime}
         setMessage={setMessage}
       />
-      <button onClick={() => setNewGame(false)}>New Game</button>
+      <button className="newGame" onClick={() => setNewGame(false)}>
+        New Game
+      </button>
       <Highscores
         highScore={highScore}
         finalTime={finalTime}
