@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Coordinates = require("../models/animalCoordinates");
+const Highscores = require("../models/highscores");
 let start;
 
 exports.getCoordinates = asyncHandler(async (req, res, next) => {
@@ -29,6 +30,17 @@ exports.startTime = asyncHandler(async (req, res, next) => {
 
 exports.checkTime = asyncHandler(async (req, res, next) => {
   let finalTime = Math.floor((Date.now() - start) / 1000);
+  let newHighScore;
 
-  return res.status(200).json({ finalTime: finalTime });
+  let highScore = await Highscores.find({}, "time");
+
+  highScore = highScore.map((times) => times.time).sort((a, b) => b - a);
+
+  if (finalTime < highScore[0]) {
+    newHighScore = "yes";
+  }
+
+  return res
+    .status(200)
+    .json({ finalTime: finalTime, newHighScore: newHighScore });
 });
