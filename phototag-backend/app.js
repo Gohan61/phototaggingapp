@@ -8,8 +8,13 @@ require("./config/database");
 const cors = require("cors");
 const app = express();
 
-app.use(cors());
-app.options("*", cors());
+const corsOptions = {
+  origin: ["https://production--phototag-frontend-odin.netlify.app"],
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+// app.options("*", cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
