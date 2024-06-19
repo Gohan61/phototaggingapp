@@ -19,6 +19,7 @@ function App() {
   const [newGame, setNewGame] = useState(false);
   const [highScore, newhighScore] = useState(false);
   const [errors, setError] = useState("");
+  let timeID = useRef();
 
   function saveCoordinates(e, coordinates) {
     coordinates.current = {
@@ -70,6 +71,7 @@ function App() {
       .then((res) => {
         if (res.message === "Game has started") {
           setMessage(res.message);
+          timeID.current = res.id;
         } else {
           throw new Error("Something went wrong");
         }
@@ -85,7 +87,7 @@ function App() {
     markers.rabbit === true
   ) {
     setMarker({ brownChicken: false, rabbit: false, whiteChicken: false });
-    fetch("http://localhost:3000/time", {
+    fetch(`http://localhost:3000/${timeID.current}`, {
       mode: "cors",
       method: "GET",
       headers: {
