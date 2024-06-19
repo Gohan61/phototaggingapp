@@ -1,8 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const Coordinates = require("../models/animalCoordinates");
 const Highscores = require("../models/highscores");
+const Time = require("../models/time");
+const mongoose = require("mongoose");
 const { body, validationResult } = require("express-validator");
-let start;
 
 exports.getCoordinates = asyncHandler(async (req, res, next) => {
   const coordinates = await Coordinates.findById(
@@ -24,13 +25,21 @@ exports.getCoordinates = asyncHandler(async (req, res, next) => {
 });
 
 exports.startTime = asyncHandler(async (req, res, next) => {
-  start = Date.now();
+  const id = new mongoose.Types.ObjectId();
+  const newTime = new Time({
+    startTime: Date.now(),
+    _id: id,
+  });
 
-  return res.status(200).json({ message: "Game has started" });
+  await newTime.save();
+
+  return res.status(200).json({ message: "Game has started", id: id });
 });
 
 exports.checkTime = asyncHandler(async (req, res, next) => {
-  let finalTime = Math.floor((Date.now() - start) / 1000);
+  const time = await Time.findById(req.params.id);
+
+  let finalTime = Math.floor((Date.now() - time.startTime) / 1000);
   let newHighScore;
 
   let highScore = await Highscores.find({}, "time");
@@ -77,7 +86,9 @@ exports.saveHighscore = [
 ];
 
 exports.getHighscores = asyncHandler(async (req, res, next) => {
-  const highscores = await Highscores.find({});
+  let highscores = await Highscores.find({});
+
+  highscores = highscores.sort((a, b) => b.time - a.time);
 
   if (!highscores) {
     const err = new Error("Highscores not found");
