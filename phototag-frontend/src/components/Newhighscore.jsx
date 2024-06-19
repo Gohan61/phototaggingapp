@@ -12,7 +12,7 @@ export default function Newhighscore({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/highscore", {
+    fetch("https://phototag-backend-odin.adaptable.app/highscore", {
       mode: "cors",
       method: "PUT",
       headers: {

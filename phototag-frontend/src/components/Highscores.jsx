@@ -4,7 +4,7 @@ export default function Highscores({ highScore, finalTime, setError }) {
   const [highscoreList, setHighScoreList] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/highscores", {
+    fetch("https://phototag-backend-odin.adaptable.app/highscores", {
       mode: "cors",
       method: "GET",
       headers: {

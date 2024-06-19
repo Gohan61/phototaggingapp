@@ -31,7 +31,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/", {
+    fetch("https://phototag-backend-odin.adaptable.app/", {
       mode: "cors",
       method: "POST",
       headers: {
@@ -58,7 +58,7 @@ function App() {
 
   useEffect(() => {
     setNewGame(true);
-    fetch("http://localhost:3000", {
+    fetch("https://phototag-backend-odin.adaptable.app/", {
       mode: "cors",
       method: "GET",
       headers: {
@@ -87,7 +87,7 @@ function App() {
     markers.rabbit === true
   ) {
     setMarker({ brownChicken: false, rabbit: false, whiteChicken: false });
-    fetch(`http://localhost:3000/${timeID.current}`, {
+    fetch(`https://phototag-backend-odin.adaptable.app/${timeID.current}`, {
       mode: "cors",
       method: "GET",
       headers: {
