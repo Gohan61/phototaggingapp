@@ -6,11 +6,9 @@ This project is build using a React frontend and backend using Express, NodeJS a
 
 This project is build according to the specification of the [Where's Waldo lesson](https://www.theodinproject.com/lessons/nodejs-where-s-waldo-a-photo-tagging-app)
 
-## Live website
+## Preview
 
 A project that is similar to the game Where's Waldo? Click on an animal in the image and identify which animal it is from the list. Try to beat the times in the highscore list. The timer starts when you click on the image.
-
-Accces the <a href='https://production--phototag-frontend-odin.netlify.app/'>Animal tagging app</a>
 
 ![Tag the animals](./Phototag-display.png "List of animals in the game")
 
